@@ -1,6 +1,8 @@
 package app.defensivethinking.co.za.smartcitizentrafficlightspotter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -8,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLight;
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLightLocation;
@@ -17,11 +21,26 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
 
     private static String TAG = TrafficSpotterMainActivity.class.getSimpleName();
     Context context;
+    GoogleCloudMessaging gcm;
+    String registrationId;
+    String PROJECT_NUMBER = "703775274412";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traffic_spotter_main);
         context = getApplicationContext();
+
+        SharedPreferences settings = getSharedPreferences("REGISTRATIONPREFS", 0);
+
+        if (!settings.contains("registrationId")) {
+            // First time execution
+            // Stores the registration id to the shared preferences
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("registrationId", new GetRegistrationId().execute()
+                    .toString());
+            editor.commit();
+        }
     }
 
     @Override
@@ -46,12 +65,12 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     //This is the Click-Listener
     private View.OnClickListener buttonClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
+
             //here we get the current GPS coordinates and then build the traffic light spotting
             Log.i(TAG, "User Attempts to Submit Traffic-Light Spotting");
             buildTrafficLightSpotting();
@@ -77,4 +96,20 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
         }
     }
 
+    public class GetRegistrationId extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                if (gcm == null) {
+                    gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
+                    registrationId = gcm.register(PROJECT_NUMBER);
+                }
+             } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
 }

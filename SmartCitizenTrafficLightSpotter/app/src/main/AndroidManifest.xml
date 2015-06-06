@@ -4,6 +4,11 @@
 
     <!-- permission required to send traffic-lights spotting upstream -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="app.defensivethinking.co.za.smartcitizentrafficlightspotter.permission.C2D_MESSAGE"/>
+
+
     <!--  required to get network state -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!--  GPS -->
