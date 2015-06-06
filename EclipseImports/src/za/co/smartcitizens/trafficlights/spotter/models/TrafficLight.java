@@ -16,6 +16,7 @@ public class TrafficLight implements Serializable {
 	private static final long serialVersionUID = 3689038939854054801L;
 	
 	private TrafficLightLocation location;	
+	private String _id;
 	private boolean isWorking = false;
 	
 	public TrafficLight(){
@@ -42,6 +43,15 @@ public class TrafficLight implements Serializable {
 
 	public void setWorking(boolean isWorking) {
 		this.isWorking = isWorking;
+	}
+	
+	
+	public String getId() {
+		return _id;
+	}
+
+	public void setId(String _id) {
+		this._id = _id;
 	}
 
 	@Override
