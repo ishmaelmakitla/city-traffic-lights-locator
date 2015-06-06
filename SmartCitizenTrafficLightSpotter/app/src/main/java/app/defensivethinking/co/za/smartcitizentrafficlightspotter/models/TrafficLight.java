@@ -11,7 +11,7 @@ public class TrafficLight implements Serializable {
     private boolean isWorking = false;
 
     public TrafficLight(){
-        //
+        
     }
 
     public TrafficLight(TrafficLightLocation location, boolean isWorking) {
