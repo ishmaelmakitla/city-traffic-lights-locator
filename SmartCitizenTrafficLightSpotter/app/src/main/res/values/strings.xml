@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">SmartCitizenTrafficLightSpotter</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">TrafficLightsSpotter</string>
+    <string name="home_activity_label">TrafficLight-Spotter</string>
+    <string name="button_spot_label">I am at a Traffic Light </string>
+
 </resources>
