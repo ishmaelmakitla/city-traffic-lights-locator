@@ -1,23 +1,27 @@
 package app.defensivethinking.co.za.smartcitizentrafficlightspotter;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLight;
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLightLocation;
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.utils.TrafficLightSpotterUtils;
 
-public class TrafficSpotterMainActivity extends AppCompatActivity {
+public class TrafficSpotterMainActivity extends ActionBarActivity {
 
     private static String TAG = TrafficSpotterMainActivity.class.getSimpleName();
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traffic_spotter_main);
+        context = getApplicationContext();
     }
 
     @Override
@@ -61,10 +65,15 @@ public class TrafficSpotterMainActivity extends AppCompatActivity {
     private void buildTrafficLightSpotting(){
 
         TrafficLightLocation location = TrafficLightSpotterUtils.getTrafficLightLocation(this);
-        if(location != null){
+        if(location != null) {
             TrafficLight trafficLight = new TrafficLight(location, true);
             Log.i(TAG, location.toString());
-            TrafficLightSpotterUtils.submitTrafficLightSpotting(trafficLight, this);
+            TrafficLightSpotterUtils.sendTrafficLightSpottingData(trafficLight,this);
+
+        }
+        else
+        {
+           Toast.makeText(context , getResources().getString(R.string.enabled_location) , Toast.LENGTH_LONG ).show();
         }
     }
 

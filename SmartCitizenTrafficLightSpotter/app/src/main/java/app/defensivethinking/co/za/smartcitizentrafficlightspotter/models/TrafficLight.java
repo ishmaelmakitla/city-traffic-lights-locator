@@ -1,17 +1,19 @@
 package app.defensivethinking.co.za.smartcitizentrafficlightspotter.models;
 
-import java.io.Serializable;
 import com.google.gson.Gson;
+
+import java.io.Serializable;
 
 public class TrafficLight implements Serializable {
 
     private static final long serialVersionUID = 3689038939854054801L;
 
     private TrafficLightLocation location;
+    private String _id;
     private boolean isWorking = false;
 
     public TrafficLight(){
-        
+        //
     }
 
     public TrafficLight(TrafficLightLocation location, boolean isWorking) {
@@ -34,6 +36,15 @@ public class TrafficLight implements Serializable {
 
     public void setWorking(boolean isWorking) {
         this.isWorking = isWorking;
+    }
+
+
+    public String getId() {
+        return _id;
+    }
+
+    public void setId(String _id) {
+        this._id = _id;
     }
 
     @Override
