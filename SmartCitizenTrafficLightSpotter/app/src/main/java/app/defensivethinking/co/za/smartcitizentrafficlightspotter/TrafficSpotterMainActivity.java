@@ -31,6 +31,10 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_traffic_spotter_main);
         context = getApplicationContext();
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         SharedPreferences settings = getSharedPreferences("REGISTRATIONPREFS", 0);
 
         if (!settings.contains("registrationId")) {
