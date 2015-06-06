@@ -17,6 +17,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLight;
 
 
 //import javax.xml.transform.ErrorListener;

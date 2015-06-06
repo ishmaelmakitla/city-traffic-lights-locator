@@ -7,10 +7,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLight;
+import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLightLocation;
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.utils.TrafficLightSpotterUtils;
 
 public class TrafficSpotterMainActivity extends AppCompatActivity {
 
+    private static String TAG = TrafficSpotterMainActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,7 @@ public class TrafficSpotterMainActivity extends AppCompatActivity {
 
 
     //This is the Click-Listener
-    private OnClickListener buttonClickListener = new OnClickListener() {
+    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
