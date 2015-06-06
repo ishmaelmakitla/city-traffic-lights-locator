@@ -1,12 +1,19 @@
 package app.defensivethinking.co.za.smartcitizentrafficlightspotter;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLight;
+import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLightLocation;
+import app.defensivethinking.co.za.smartcitizentrafficlightspotter.utils.TrafficLightSpotterUtils;
 
 public class TrafficSpotterMainActivity extends AppCompatActivity {
 
+    private static String TAG = TrafficSpotterMainActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,4 +41,31 @@ public class TrafficSpotterMainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    //This is the Click-Listener
+    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            //here we get the current GPS coordinates and then build the traffic light spotting
+            Log.i(TAG, "User Attempts to Submit Traffic-Light Spotting");
+            buildTrafficLightSpotting();
+        }
+    };
+
+    /**
+     * This function is used to construct the traffic light spotting report
+     *
+     */
+    private void buildTrafficLightSpotting(){
+
+        TrafficLightLocation location = TrafficLightSpotterUtils.getTrafficLightLocation(this);
+        if(location != null){
+            TrafficLight trafficLight = new TrafficLight(location, true);
+            Log.i(TAG, location.toString());
+            TrafficLightSpotterUtils.submitTrafficLightSpotting(trafficLight, this);
+        }
+    }
+
 }
