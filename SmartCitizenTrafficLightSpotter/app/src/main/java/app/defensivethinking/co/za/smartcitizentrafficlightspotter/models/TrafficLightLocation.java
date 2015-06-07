@@ -7,13 +7,17 @@ import com.google.gson.Gson;
 public class TrafficLightLocation implements Serializable{
 
     private static final long serialVersionUID = 1587797602244691958L;
+
+    private int _id;
+    private int __v;
     private double xcoordinates;
     private double ycoordinates;
-    private boolean isWorking = false;
 
-    //for the cases where the robbot is at an intersection
+    //for the cases where the robot is at an intersection
     private String street1;
     private String street2;
+    private String updateTimeStamp;
+    private boolean isWorking = false;
 
     public TrafficLightLocation(){
     }
@@ -24,6 +28,14 @@ public class TrafficLightLocation implements Serializable{
         this.street1 = "";
         this.street2 = "";
     }
+
+    public int get_id() { return _id; }
+
+    public void set_id(int _id) { this._id = _id; }
+
+    public int get__v() { return __v; }
+
+    public void set__v(int __v) { this.__v = __v; }
 
     public double getXcoordinates() { return xcoordinates; }
 
@@ -60,6 +72,10 @@ public class TrafficLightLocation implements Serializable{
     public void setStreet2(String street2) {
         this.street2 = street2;
     }
+
+    public String getUpdateTimeStamp() { return updateTimeStamp; }
+
+    public void setUpdateTimeStamp(String updateTimeStamp) { this.updateTimeStamp = updateTimeStamp; }
 
     @Override
     public String toString() {

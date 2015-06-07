@@ -26,6 +26,9 @@ public class TrafficLightParser {
 
                 trafficLightLocation.setXcoordinates(jsonObject.getDouble("x"));
                 trafficLightLocation.setYcoordinates(jsonObject.getDouble("y"));
+                trafficLightLocation.setStreet1(jsonObject.getString("street1"));
+                trafficLightLocation.setStreet2(jsonObject.getString("street2"));
+                trafficLightLocation.setUpdateTimeStamp(jsonObject.getString("updated"));
                 trafficLightLocation.setWorking(jsonObject.getBoolean("working"));
 
                 trafficLightLocationList.add(trafficLightLocation);

@@ -57,11 +57,15 @@ public class MapsActivity extends FragmentActivity {
 
         for (int i = 0; i < trafficLightLocationList.size(); i++) {
 
-            // TODO: Fix the location title
             MarkerOptions markerOptions = new MarkerOptions().position(
                     new LatLng(trafficLightLocationList.get(i).getYcoordinates(),
                             trafficLightLocationList.get(i).getXcoordinates()))
-                    .title("tITLE");
+                    .title(
+                            "Street 1: " + trafficLightLocationList.get(i).getStreet1() +
+                            "Street 2: " + trafficLightLocationList.get(i).getStreet2() +
+                            "Updated: " + trafficLightLocationList.get(i).getUpdateTimeStamp() +
+                            "Working: " + trafficLightLocationList.get(i).isWorking()
+                    );
 
             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.traffic_light_icon));
 
@@ -90,30 +94,5 @@ public class MapsActivity extends FragmentActivity {
         protected void onPostExecute(List<TrafficLightLocation> result) {
             addMarkersToMap(result);
         }
-
-        //          List<TrafficLightLocation> trafficLightLocationList = new ArrayList<TrafficLightLocation>();
-//
-//          TrafficLightLocation trafficLightLocation = new TrafficLightLocation();
-//          trafficLightLocation.setXcoordinates(27.528992);
-//          trafficLightLocation.setYcoordinates(-25.988620);
-//          trafficLightLocation.setWorking(true);
-//
-//            trafficLightLocationList.add(trafficLightLocation);
-//
-//          TrafficLightLocation trafficLightLocation0 = new TrafficLightLocation();
-//          trafficLightLocation0.setXcoordinates(26.328735);
-//          trafficLightLocation0.setYcoordinates(-26.346056);
-//          trafficLightLocation0.setWorking(false);
-//
-//        trafficLightLocationList.add(trafficLightLocation0);
-//
-//          TrafficLightLocation trafficLightLocation1 = new TrafficLightLocation();
-//          trafficLightLocation1.setXcoordinates(28.056335);
-//          trafficLightLocation1.setYcoordinates(-25.658278);
-//          trafficLightLocation1.setWorking(false);
-//
-//        trafficLightLocationList.add(trafficLightLocation1);
-//
-//        addMarkersToMap(trafficLightLocationList);
     }
 }
