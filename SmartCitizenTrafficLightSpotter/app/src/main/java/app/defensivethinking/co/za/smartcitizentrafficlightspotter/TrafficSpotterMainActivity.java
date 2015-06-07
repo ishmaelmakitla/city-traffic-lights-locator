@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLight;
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLightLocation;
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.utils.TrafficLightSpotterUtils;
+import app.defensivethinking.co.za.smartcitizentrafficlightspotter.utils.GlobalConstants;
 
 public class TrafficSpotterMainActivity extends ActionBarActivity {
 
@@ -38,16 +40,14 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
         getSupportActionBar().setLogo(R.mipmap.ic_launcher);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        SharedPreferences settings = getSharedPreferences("REGISTRATIONPREFS", 0);
 
-        if (!settings.contains("registrationId")) {
-            // First time execution
-            // Stores the registration id to the shared preferences
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString("registrationId", new GetRegistrationId().execute()
-                    .toString());
-            editor.commit();
+        SharedPreferences sharedPreferences = PreferenceManager.
+                getDefaultSharedPreferences(TrafficSpotterMainActivity.this);
+
+        if (!sharedPreferences.contains(GlobalConstants.APP_REGISTRATION_ID)) {
+            new GetRegistrationId().execute();
         }
+
 
         spotButton = (Button)findViewById(R.id.btnSpot);
         spotButton.setOnClickListener(buttonClickListener);
@@ -99,10 +99,9 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
 
         TrafficLightLocation location = TrafficLightSpotterUtils.getTrafficLightLocation(this);
         if(location != null) {
-            TrafficLight trafficLight = new TrafficLight(location, true);
+            TrafficLight trafficLight = new TrafficLight(location, true, TrafficLightSpotterUtils.getSpotterId(this));
             Log.i(TAG, location.toString());
             TrafficLightSpotterUtils.sendTrafficLightSpottingData(trafficLight,this);
-
         }
         else
         {
@@ -112,18 +111,33 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
 
     public class GetRegistrationId extends AsyncTask<Void, Void, Void> {
 
+        private String gcmId;
+
         @Override
         protected Void doInBackground(Void... params) {
             try {
                 if (gcm == null) {
                     gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-                    registrationId = gcm.register(PROJECT_NUMBER);
+                    gcmId = gcm.register(PROJECT_NUMBER);
                 }
              } catch (Exception e) {
                 e.printStackTrace();
             }
 
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+                SharedPreferences sharedPreferences = PreferenceManager.
+                        getDefaultSharedPreferences(TrafficSpotterMainActivity.this);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(GlobalConstants.APP_REGISTRATION_ID, gcmId);
+                editor.commit();
+            //now register the spotter
+            TrafficLightSpotterUtils.registerSpotter(TrafficSpotterMainActivity.this, gcmId);
         }
     }
 }

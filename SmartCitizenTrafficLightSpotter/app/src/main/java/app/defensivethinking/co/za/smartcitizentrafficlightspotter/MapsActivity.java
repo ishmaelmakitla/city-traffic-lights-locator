@@ -2,7 +2,7 @@ package app.defensivethinking.co.za.smartcitizentrafficlightspotter;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -15,13 +15,13 @@ import java.util.List;
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.dao.HttpManager;
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLightLocation;
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.parser.TrafficLightParser;
-import app.defensivethinking.co.za.smartcitizentrafficlightspotter.utils.mGlobalConstants;
+import app.defensivethinking.co.za.smartcitizentrafficlightspotter.utils.GlobalConstants;
 
 /**
  * Created by Naledi Madlopha on 2015/06/07.
  */
 
-public class MapsActivity extends FragmentActivity {
+public class MapsActivity extends ActionBarActivity {
 
     private GoogleMap mMap;
     public List<TrafficLightLocation> trafficLightLocationList = null;
@@ -31,6 +31,10 @@ public class MapsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
     }
 
     @Override
@@ -79,7 +83,7 @@ public class MapsActivity extends FragmentActivity {
         protected List<TrafficLightLocation> doInBackground(Void... params) {
 
             try {
-                String content = HttpManager.getData(mGlobalConstants.LIGHT_JSON);
+                String content = HttpManager.getData(GlobalConstants.LIGHT_JSON);
                 trafficLightLocationList = TrafficLightParser.parseFeed(content);
 
                 addMarkersToMap(trafficLightLocationList);

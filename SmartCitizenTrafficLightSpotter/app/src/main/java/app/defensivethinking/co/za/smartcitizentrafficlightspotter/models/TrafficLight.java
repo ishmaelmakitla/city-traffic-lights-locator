@@ -11,15 +11,17 @@ public class TrafficLight implements Serializable {
     private TrafficLightLocation location;
     private String _id;
     private boolean isWorking = false;
+    private String spotter;
 
     public TrafficLight(){
         //
     }
 
-    public TrafficLight(TrafficLightLocation location, boolean isWorking) {
+    public TrafficLight(TrafficLightLocation location, boolean isWorking, String spotter) {
         super();
         this.location = location;
         this.isWorking = isWorking;
+        this.spotter = spotter;
     }
 
     public TrafficLightLocation getLocation() {
@@ -38,6 +40,13 @@ public class TrafficLight implements Serializable {
         this.isWorking = isWorking;
     }
 
+    public String getSpotter() {
+        return spotter;
+    }
+
+    public void setSpotter(String spotter) {
+        this.spotter = spotter;
+    }
 
     public String getId() {
         return _id;
