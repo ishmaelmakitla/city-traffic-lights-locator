@@ -7,38 +7,42 @@ import com.google.gson.Gson;
 public class TrafficLightLocation implements Serializable{
 
     private static final long serialVersionUID = 1587797602244691958L;
-    private String xcoordinates;
-    private String ycoordinates;
+    private double xcoordinates;
+    private double ycoordinates;
+    private boolean isWorking = false;
 
     //for the cases where the robbot is at an intersection
     private String street1;
     private String street2;
 
     public TrafficLightLocation(){
-
     }
 
-    public TrafficLightLocation(String xCoordinates, String yCoordinates) {
+    public TrafficLightLocation(double xCoordinates, double yCoordinates) {
         this.xcoordinates = xCoordinates;
         this.ycoordinates = yCoordinates;
         this.street1 = "";
         this.street2 = "";
     }
 
-    public String getXcoordinates() {
-        return xcoordinates;
-    }
+    public double getXcoordinates() { return xcoordinates; }
 
-    public void setXcoordinates(String xcoordinates) {
-        this.xcoordinates = xcoordinates;
-    }
+    public void setXcoordinates(double xcoordinates) { this.xcoordinates = xcoordinates; }
 
-    public String getYcoordinates() {
+    public double getYcoordinates() {
         return ycoordinates;
     }
 
-    public void setYcoordinates(String ycoordinates) {
+    public void setYcoordinates(double ycoordinates) {
         this.ycoordinates = ycoordinates;
+    }
+
+    public boolean isWorking() {
+        return isWorking;
+    }
+
+    public void setWorking(boolean isWorking) {
+        this.isWorking = isWorking;
     }
 
     public String getStreet1() {
