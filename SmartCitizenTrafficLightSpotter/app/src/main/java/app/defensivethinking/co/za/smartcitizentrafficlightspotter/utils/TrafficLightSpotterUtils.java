@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.R;
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLight;
+import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLightDataSubmissionResponse;
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLightLocation;
 
 /**
@@ -67,13 +68,14 @@ public class TrafficLightSpotterUtils {
         try {
             RequestQueue queue = Volley.newRequestQueue(context);
             JSONObject trafficLightSpottingData = new JSONObject(trafficLight.toString());
-
+            Log.i(TAG, trafficLightSpottingData.toString());
             TrafficLightLocationSpotRequest trafficLightSpottingRequest = new TrafficLightLocationSpotRequest(TRAFFIC_LIGHT_SPOTTER_SERVER_URL, trafficLightSpottingData,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             //submission response object - parse to our response-model
-                            app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLightDataSubmissionResponse submissionResponse = app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLightDataSubmissionResponse.asTrafficLightDataSubmissionResponse(response.toString());
+                            TrafficLightDataSubmissionResponse submissionResponse = TrafficLightDataSubmissionResponse.asTrafficLightDataSubmissionResponse(response.toString());
+
                             boolean success = submissionResponse.isSuccess();
                             if(success){
                                 Log.i(TAG, "Submission Response :: Successful = " + submissionResponse.isSuccess() + ", ID = " + submissionResponse.getTrafficLight().getId());
@@ -87,7 +89,6 @@ public class TrafficLightSpotterUtils {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     try {
-                        Toast.makeText(context, "There were some problems while trying to submit the Traffic Light data. Please Try again", Toast.LENGTH_LONG).show();
                         Log.e(TAG, "There were some problems while trying to submit the Traffic Light data. Error is ",error);
                         Toast.makeText(context, context.getResources().getString(R.string.traffic_submit_fail) ,Toast.LENGTH_LONG ).show();
                     }
