@@ -38,7 +38,7 @@ public class TrafficLightSpotterUtils {
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
             Log.d(TAG, "TrafficLightLocation: (x: "+longitude+", y: "+latitude+")");
-            trafficLightLocation = new TrafficLightLocation(String.valueOf(longitude), String.valueOf(latitude));
+            trafficLightLocation = new TrafficLightLocation(longitude, latitude);
             Log.d(TAG, trafficLightLocation.toString());
         }
         else{
