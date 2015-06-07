@@ -26,6 +26,7 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
     GoogleCloudMessaging gcm;
     String registrationId;
     String PROJECT_NUMBER = "703775274412";
+    Button spotButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +49,8 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
             editor.commit();
         }
 
-        Button btn = (Button) findViewById(R.id.btnSpot);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TrafficSpotterMainActivity.this, MapsActivity.class);
-                startActivity(intent);
-            }
-        });
+        spotButton = (Button)findViewById(R.id.btnSpot);
+        spotButton.setOnClickListener(buttonClickListener);
     }
 
     @Override
@@ -77,7 +71,11 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        else if ( id == R.id.action_map) {
 
+            Intent mapIntent = new Intent(this, MapsActivity.class);
+            startActivity(mapIntent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
