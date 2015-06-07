@@ -75,7 +75,7 @@ public class TrafficLightSpotterUtils {
                         public void onResponse(JSONObject response) {
                             //submission response object - parse to our response-model
                             TrafficLightDataSubmissionResponse submissionResponse = TrafficLightDataSubmissionResponse.asTrafficLightDataSubmissionResponse(response.toString());
-
+                            Log.i("My Data", response.toString());
                             boolean success = submissionResponse.isSuccess();
                             if(success){
                                 Log.i(TAG, "Submission Response :: Successful = " + submissionResponse.isSuccess() + ", ID = " + submissionResponse.getTrafficLight().getId());
