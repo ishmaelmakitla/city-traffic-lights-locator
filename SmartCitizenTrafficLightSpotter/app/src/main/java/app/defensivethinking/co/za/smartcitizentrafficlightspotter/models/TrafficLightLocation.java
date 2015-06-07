@@ -1,7 +1,8 @@
 package app.defensivethinking.co.za.smartcitizentrafficlightspotter.models;
 
-import java.io.Serializable;
 import com.google.gson.Gson;
+
+import java.io.Serializable;
 
 
 public class TrafficLightLocation implements Serializable{
@@ -64,7 +65,7 @@ public class TrafficLightLocation implements Serializable{
 
     /**
      * Utility method for converting a traffic-light JSON string to TrafficLight object
-     * @param trafficLightJSON
+     * @param locationJSON
      * @return
      */
     public static TrafficLightLocation asTrafficLight(String locationJSON){

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import app.defensivethinking.co.za.smartcitizentrafficlightspotter.models.TrafficLight;
@@ -17,17 +18,22 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
 
     private static String TAG = TrafficSpotterMainActivity.class.getSimpleName();
     Context context;
+    Button spotButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traffic_spotter_main);
         context = getApplicationContext();
+
+
+        spotButton = (Button)findViewById(R.id.btnSpot);
+        spotButton.setOnClickListener(buttonClickListener);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_traffic_spotter_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_traffic_spotter_main, menu);
         return true;
     }
 
@@ -36,12 +42,12 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        // int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        //if (id == R.id.action_settings) {
+          //  return true;
+        //}
 
         return super.onOptionsItemSelected(item);
     }
@@ -64,12 +70,12 @@ public class TrafficSpotterMainActivity extends ActionBarActivity {
      */
     private void buildTrafficLightSpotting(){
 
-        TrafficLightLocation location = TrafficLightSpotterUtils.getTrafficLightLocation(this);
+        TrafficLightLocation location = TrafficLightSpotterUtils.getTrafficLightLocation(context);
+
         if(location != null) {
             TrafficLight trafficLight = new TrafficLight(location, true);
             Log.i(TAG, location.toString());
-            TrafficLightSpotterUtils.sendTrafficLightSpottingData(trafficLight,this);
-
+            TrafficLightSpotterUtils.sendTrafficLightSpottingData(trafficLight,context);
         }
         else
         {

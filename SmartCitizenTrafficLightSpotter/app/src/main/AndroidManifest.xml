@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <!--  required to get network state -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <!--  GPS -->
     <uses-permission android:name = "android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name = "android.permission.ACCESS_FINE_LOCATION" />
@@ -14,20 +16,29 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:icon="@mipmap/traffic_light_icon"
+        android:theme="@style/AppTheme"
+         >
+
         <activity
             android:name=".TrafficSpotterMainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/home_activity_label" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

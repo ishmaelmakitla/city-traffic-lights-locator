@@ -31,7 +31,7 @@ public class TrafficLightLocationSpotRequest extends JsonRequest<JSONObject>{
 	@Override
 	protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
 		String data = new String (response.data);
-		
+		Log.i(TAG, "My Data"+data);
 		JSONObject jsonResponse = null;
 		try {
 			jsonResponse = new JSONObject(data);
